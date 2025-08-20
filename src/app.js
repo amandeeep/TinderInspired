@@ -18,7 +18,8 @@ const {requestRouter} = require("./routes/request");
 const {userRouter} = require("./routes/user");
 // cors
 app.use(cors({
-  origin: "http://localhost:5173",
+  // origin: "http://localhost:5173",
+  origin: "https://pusle-match.onrender.com",
   credentials: true
 }));
 app.use(express.json());
