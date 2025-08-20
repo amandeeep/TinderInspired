@@ -49,15 +49,15 @@ app.get("/data", async (req, res) => {
 });
 
 // Get all users
-app.get("/feed", async (req, res) => {
-  try {
-    const users = await User.find({});
-    console.log("users =>", users);
-    res.json(users);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
+// app.get("/feed", async (req, res) => {
+//   try {
+//     const users = await User.find({});
+//     console.log("users =>", users);
+//     res.json(users);
+//   } catch (err) {
+//     res.status(500).send(err.message);
+//   }
+// });
 
 // Get one user by firstName from query string
 app.get("/oneData", async (req, res) => {
