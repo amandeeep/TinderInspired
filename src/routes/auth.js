@@ -25,7 +25,9 @@ authRouter.post("/signup", async (req,res) => {
         const token = await user.getJWT();
     res.cookie("token", token, {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      httpOnly: true
+      httpOnly: true,
+      secure: true,
+                sameSite:"None",
     });
        res.status(201).send({
             success: true,
@@ -56,7 +58,10 @@ authRouter.post("/login", async (req,res) => {
             const token = await user.getJWT();
             res.cookie("token", token, {
                 expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
-                httpOnly: true 
+                httpOnly: true,
+                secure: true,
+                sameSite:"None",
+
             });
             res.send(user);
         }
