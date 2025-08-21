@@ -3,7 +3,7 @@ const requestRouter = express.Router();
 const {adminAuth} = require("../middleWears/adminAuth");
 const User = require("../models/user");
 const connectionRequest = require("../models/connectionRequest");
-
+const sendMail = require("../utils/mailer");
 requestRouter.post("/request/send/:status/:reqUserId", adminAuth, async(req,res) => {
     try {
         const user = req.user;
@@ -38,6 +38,30 @@ requestRouter.post("/request/send/:status/:reqUserId", adminAuth, async(req,res)
             status
         })
         const data = await newRequest.save();
+
+
+        // send email 
+
+        if (status === "interested" && toUser.email) {
+            const htmlContent = `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2>Hello ${toUser.firstName},</h2>
+                    <p><b>${user.firstName}</b> has shown interest in connecting with you!</p>
+                    <p style="margin-top:20px;">
+                        👉 <a href="https://pusle-match.onrender.com/requests" style="color:blue;">View Request</a>
+                    </p>
+                    <br>
+                    <p>Best regards,<br/>TechConnect Team</p>
+                </div>
+            `;
+
+            await sendMail(
+                toUser.email,
+                "🔔 New Connection Interest",
+                htmlContent
+            );
+        }
+
         res.json({
             message: `${req.user.firstName} is ${status} in ${toUser.firstName}`,
             data,
