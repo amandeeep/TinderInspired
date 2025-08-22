@@ -42,7 +42,8 @@ requestRouter.post("/request/send/:status/:reqUserId", adminAuth, async(req,res)
 
         // send email 
 
-        if (status === "interested" && toUser.email) {
+        if (status === "interested" && toUser.emailId) {
+            console.log(toUser.emailId)
             const htmlContent = `
                 <div style="font-family: Arial, sans-serif; padding: 20px;">
                     <h2>Hello ${toUser.firstName},</h2>
@@ -56,7 +57,7 @@ requestRouter.post("/request/send/:status/:reqUserId", adminAuth, async(req,res)
             `;
 
             await sendMail(
-                toUser.email,
+                toUser.emailId,
                 "🔔 New Connection Interest",
                 htmlContent
             );
