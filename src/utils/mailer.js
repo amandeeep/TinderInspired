@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer')
-require("dotenv").config();
+
+const dotenv = require("dotenv").config();
 
 const nodemailer = require("nodemailer");
 
@@ -13,6 +13,9 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS, // Gmail App Password (NOT normal password)
   },
 });
+console.log("📧 EMAIL_USER:", process.env.EMAIL_USER);
+console.log("🔑 EMAIL_PASS:", process.env.EMAIL_PASS ? "Loaded" : "MISSING");
+
 
 async function sendMail(to, subject, html) {
   try {
